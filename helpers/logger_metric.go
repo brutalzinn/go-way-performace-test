@@ -1,9 +1,10 @@
 package helpers
 
 import (
-	"brutalzinn/go-way-performace-test/mensure"
 	"log"
 	"os"
+
+	"github.com/brutalzinn/go-way-performace-test/mensure"
 )
 
 type LoggerMetric struct {

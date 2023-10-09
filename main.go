@@ -1,36 +1,23 @@
-package main
+package gowayperformacetest
 
 import (
-	"brutalzinn/go-way-performace-test/helpers"
-	"brutalzinn/go-way-performace-test/mensure"
 	"sync"
-	"time"
+
+	"github.com/brutalzinn/go-way-performace-test/mensure"
 )
 
-func main() {
+var Version string = "1.0.0"
+
+func MensureFunction(name string, callback func(mensure.TimeBenchmark), fn func(...any), args ...any) {
 	wg := sync.WaitGroup{}
-	logger := helpers.LoggerMetric{
-		OutputLogFile: "test_result/test.txt",
-	}
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		benchmark := mensure.New("test doSomething()")
+		benchmark := mensure.New(name)
 		benchmark.Start()
-		time.Sleep(2 * time.Second)
+		fn(args)
 		benchmark.End()
-		logger.WriteMensureTime(benchmark)
-	}()
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		benchmark := mensure.New("test doSomething2()")
-		benchmark.Start()
-		logger.Write("simulate doSomething2()")
-		time.Sleep(1 * time.Second)
-		logger.Write("end simulate doSomething2()")
-		benchmark.End()
-		logger.WriteMensureTime(benchmark)
+		callback(benchmark)
 	}()
 	wg.Wait()
 }
