@@ -11,6 +11,13 @@ type LoggerMetric struct {
 	OutputLogFile string
 }
 
+func New(outputLogFile string) LoggerMetric {
+	logger := LoggerMetric{
+		OutputLogFile: outputLogFile,
+	}
+	return logger
+}
+
 func (lm *LoggerMetric) Write(data any) {
 	f, err := os.OpenFile(lm.OutputLogFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
