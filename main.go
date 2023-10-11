@@ -6,7 +6,7 @@ import (
 	"github.com/brutalzinn/go-way-performace-test/mensure"
 )
 
-var Version string = "1.0.0"
+var Version string = "1.0.1"
 
 func MensureFunction(name string, callback func(mensure.TimeBenchmark), fn func(...any), args ...any) {
 	wg := sync.WaitGroup{}
